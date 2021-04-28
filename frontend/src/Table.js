@@ -21,7 +21,8 @@ const containsPrev = (json) =>{
   return false;
 }
 
-const Table = ({link}) =>{
+const Table = ({link, mode}) =>{
+  const invertedMode = mode === 'dark' ? 'light' : 'dark';
   const [quakes, setQuakes] = useState({});
   const [page, setPage] = useState(1);
   useEffect(() =>{
@@ -49,10 +50,10 @@ const Table = ({link}) =>{
         <Loader type="Oval" color="#00BFFF" height={80} width={80} />
       :
       <div className="container">
-        <h2>Earthquake Details</h2>
-        <p>Following are the recent data about the earthquake happened all around the globe</p>
-        <table className="table">
-          <thead className="thead-dark">
+        <h2 className = {`text-${invertedMode}`}>Earthquake Details</h2>
+        <p className = {`text-${invertedMode}`}>Following are the recent data about the earthquake happened all around the globe</p>
+        <table className={`table table-striped table-${mode}`}>
+          <thead className={`thead-${invertedMode}`}>
             <tr>
              <th >#</th>
               <th>Place</th>
@@ -62,12 +63,12 @@ const Table = ({link}) =>{
             </tr>
           </thead>
           <tbody>
-            <TableBody quakes = {quakes} />
+            <TableBody quakes = {quakes} mode = {mode}/>
           </tbody>
         </table>
         <div className = "buttons">
-          <button className="btn btn-primary" type="button" disabled = {!containsPrev(quakes)} onClick = {() => {handleClick(page - 1)}}>&#8249;</button>
-          <button className="btn btn-primary" type="button" disabled = {!containsNext(quakes)} onClick = {() => {handleClick(page + 1)}}>&#8250;</button>
+          <button className={`btn btn-${invertedMode}`} type="button" disabled = {!containsPrev(quakes)} onClick = {() => {handleClick(page - 1)}}>&#8249;</button>
+          <button className={`btn btn-${invertedMode}`} type="button" disabled = {!containsNext(quakes)} onClick = {() => {handleClick(page + 1)}}>&#8250;</button>
         </div>
       </div>
     }

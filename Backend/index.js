@@ -20,7 +20,7 @@ let quakesMag4 = {
   data: [],
   lastUpdated: ""
 };
-let lastUpdated;
+let coordinates = [];
 
 const paginatedResult = (model, req, res, next) =>{
   const page = parseInt(req.query.page) || 1;
@@ -123,6 +123,29 @@ app.get('/api/quakes/:mag', (req, res, next) =>{
       break;
     }
     default: res.status(400).send({'error':'unknown endpoint'});
+  }
+})
+
+app.get('/api/coordinates', (req, res, next) =>{
+  if(!coordinates && quakes.data.length){
+    coordinates = quakes.data.map(quake =>{
+      return [quake.geometry.coordinates[1], quake.geometry.coordinates[2]];
+    });
+    res.send(coordinates);
+  }
+  else if(coordinates){
+    res.send(coordinates);
+  }
+  else if(!quakes.data.length){
+    axios.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson')
+      .then((result) =>{
+        const json = result.data;
+        quakes.data = json;
+        coordinates = quakes.data.map(quake =>{
+          return [quake.geometry.coordinates[1], quake.geometry.coordinates[2]];
+        });
+        res.send(coordinates);
+      })
   }
 })
 
