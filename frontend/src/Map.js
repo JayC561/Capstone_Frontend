@@ -45,7 +45,7 @@ const Map = ({quakes}) =>{
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(mapObj));
   },[])
   return(
-    <div className = "map-wrapper">
+    <div className = "map-wrapper" id="map">
       <div ref={mapRef} style={{  height: "500px" }} />
     </div>
   )

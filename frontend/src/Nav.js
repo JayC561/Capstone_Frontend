@@ -9,7 +9,12 @@ const Nav = ({mode, setMode}) =>{
       <h1 className = {`h2 text-${invertedMode}`}>Quaker App</h1>
       <div className = "top-nav__right">
         <ToggleSwitch mode = {mode} setMode = {setMode}/>
-        <img src = {lightMap}/>
+        {
+          invertedMode === 'dark' ?
+            <a href = "#map"><img src = {darkMap} style = {{height: "1.5em"}}/></a>
+          :
+            <a href = "#map"><img src = {lightMap} style = {{height: "1.5em"}}/></a>
+        }
       </div>
     </div>
   )
