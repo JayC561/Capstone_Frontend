@@ -6,7 +6,7 @@ import SideNav from './SideNav';
 import Map from './Map';
 import Nav from './Nav';
 function App() {
-  const baseURL = 'http://localhost:3001/api/quakes/';
+  const baseURL = '/api/quakes/';
   const [link, setLink] = useState(baseURL);
   const [mode, setMode] = useState('light');
   const [quakes, setQuakes] = useState({});
