@@ -127,25 +127,14 @@ app.get('/api/quakes/:mag', (req, res, next) =>{
 })
 
 app.get('/api/coordinates', (req, res, next) =>{
-  if(!coordinates && quakes.data.length){
+  if(coordinates.length){
+    res.send(coordinates);
+  }
+  else{
     coordinates = quakes.data.map(quake =>{
-      return [quake.geometry.coordinates[1], quake.geometry.coordinates[2]];
+      return [quake.geometry.coordinates[1], quake.geometry.coordinates[0]];
     });
     res.send(coordinates);
-  }
-  else if(coordinates){
-    res.send(coordinates);
-  }
-  else if(!quakes.data.length){
-    axios.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson')
-      .then((result) =>{
-        const json = result.data;
-        quakes.data = json;
-        coordinates = quakes.data.map(quake =>{
-          return [quake.geometry.coordinates[1], quake.geometry.coordinates[2]];
-        });
-        res.send(coordinates);
-      })
   }
 })
 

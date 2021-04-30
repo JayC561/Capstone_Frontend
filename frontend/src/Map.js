@@ -1,23 +1,48 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
+const isEmpty = (obj) =>{
+  return Object.keys(obj).length === 0;
+}
 
-const Map = (props) =>{
+const Map = ({quakes}) =>{
   const mapRef = useRef();
+  const [coords, setCoords] = useState([]);
+  const [map, setMap] = useState({});
+  useEffect(() =>{
+    const coordinates = quakes.result.map(quake =>{
+      return [quake.geometry.coordinates[1], quake.geometry.coordinates[0]];
+    })
+    setCoords(coordinates);
+  }, [quakes])
+
+  useEffect(() =>{
+    const H = window.H;
+    if(coords.length && !isEmpty(map)){
+      coords.forEach(coord =>{
+        const marker = new H.map.Marker({lat:coord[0], lng:coord[1]});
+        map.addObject(marker);
+      })
+    }
+  }, [coords])
+
   useEffect(() =>{
     const H = window.H;
     const platform = new H.service.Platform({
-      apikey: "D_FJ3fW805Sk6BJFXQt78-0mx88yNWG5pjjhITjsMtg"
+      apikey: "DuXZgxXVck40N5hj-PYopfPuYWd_jRfjVRZiX0OTxzc"
     })
     const defaultLayers = platform.createDefaultLayers();
-    const map = new H.Map(
+    const mapObj = new H.Map(
       mapRef.current,
       defaultLayers.vector.normal.map,
       {
-        center: { lat: 31.3260, lng: 75.5762 },
-        zoom: 1,
+        center: { lat: 47.6062, lng: -122.3321 },
+        zoom: 4,
         pixelRatio: window.devicePixelRatio || 1
       }
     );
+    setMap(mapObj);
+    window.addEventListener('resize', () => mapObj.getViewPort().resize());
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(mapObj));
   },[])
   return(
     <div className = "map-wrapper">
