@@ -58,3 +58,9 @@ svg{
   display: flex;
   justify-content: space-around;
 }
+
+.top-nav{
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: space-between;
+}

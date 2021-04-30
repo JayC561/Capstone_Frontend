@@ -1,5 +1,4 @@
 import React from 'react';
-import ToggleSwtich from './ToggleSwitch';
 
 const SideNav = ({link, setLink, mode, setMode}) =>{
   const invertedMode = mode === "dark" ? "light" : "dark";
@@ -17,7 +16,6 @@ const SideNav = ({link, setLink, mode, setMode}) =>{
   }
   return(
     <div>
-      <ToggleSwtich mode = {mode} setMode = {setMode}/>
       <nav className = "nav-wrapper">
         <h1 className={`h4 text-${invertedMode}`} style={{textAlign: "center"}}>Filter through magnitude</h1>
         <div className={`form-check text-${invertedMode}`} >

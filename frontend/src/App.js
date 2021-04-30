@@ -4,12 +4,12 @@ import Loader from 'react-loader-spinner';
 import Table from './Table';
 import SideNav from './SideNav';
 import Map from './Map';
+import Nav from './Nav';
 function App() {
   const baseURL = 'http://localhost:3001/api/quakes/';
   const [link, setLink] = useState(baseURL);
   const [mode, setMode] = useState('light');
   const [quakes, setQuakes] = useState({});
-
   const isEmpty = (obj) =>{
     return Object.keys(obj).length === 0;
   }
@@ -42,8 +42,9 @@ function App() {
           <Loader type="Oval" color="#00BFFF" height={80} width={80} />
         :
         <>
+          <Nav mode = {mode} setMode = {setMode}/>
           <main>
-            <SideNav link = {baseURL} setLink = {setLink} mode = {mode} setMode = {setMode}/>
+            <SideNav link = {baseURL} setLink = {setLink} mode = {mode}/>
             <Table link = {link} mode = {mode} setQuakes = {setQuakes} quakes = {quakes}/>
           </main>
           <section>
