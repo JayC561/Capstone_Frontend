@@ -6,7 +6,7 @@ import SideNav from './SideNav';
 import Map from './Map';
 import Nav from './Nav';
 function App() {
-  const baseURL = '/api/quakes/';
+  const baseURL = 'https://fuchsia-economic-raclette.glitch.me/api/quakes';
   const [link, setLink] = useState(baseURL);
   const [mode, setMode] = useState('light');
   const [quakes, setQuakes] = useState({});
