@@ -28,7 +28,7 @@ const Map = ({quakes}) =>{
   useEffect(() =>{
     const H = window.H;
     const platform = new H.service.Platform({
-      apikey: "DuXZgxXVck40N5hj-PYopfPuYWd_jRfjVRZiX0OTxzc"
+      apikey: "0_vO-CK8XwH6Z5pITpgI5DZeOEn-auKHhn_7kvLQkc4"
     })
     const defaultLayers = platform.createDefaultLayers();
     const mapObj = new H.Map(
